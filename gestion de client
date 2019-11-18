@@ -1,0 +1,47 @@
+#Gestion du client
+class Client(object):
+    vSolde=100000 
+    def __init__(self):
+        self.nom = "Kowe"
+        self.prenom = "Agouna"
+        self.matricule = "17A165FS"
+        self.adresse = "Dang"
+        self.typeCompte = "courant"
+        self.vSolde = 120000
+        
+        #verser le montant plus dans mon solde
+    def verser(self,banque,plus):
+        self.vSolde = self.vSolde + plus
+        banque=banque+plus
+        return self.vSolde
+
+        #Retrait d'argent dans le compte
+    def retirer(self,banque,montant):
+        controleur = Controleur()
+        if(controleur.verifier(banque,montant)):
+            self.vSolde = self.vSolde - montant
+            banque=banque-montant
+        else:
+            print("La banque dispose d'un montant actuel inferieur a votredemande")
+        return banque
+
+        #Enprunter de l'argent dans le compte
+    def enprunter(self, montant,banque,typeCompte):
+        controleur = Controleur()
+        if(controleur.verifier(banque,montant)):
+            self.vSolde = self.vSolde - montant
+            pourcentage = input("Pourcentage: \n")
+
+            if(typeCompte == 'courant' and self.vSolde>pourcentage):
+                self.vSolde = self.vSolde - montant
+                banque=banque-montant 
+                print("Vous avez enprunter avec succes une somme de " +str(montant)+" Fcfa")
+                return 1
+            else:
+                print("Vous ne pouvez pas enprunter\n")
+                return 0
+
+        else:
+                print("Solde de la banque inferieur")
+                return banque
+        
